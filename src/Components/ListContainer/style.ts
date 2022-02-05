@@ -74,7 +74,7 @@ export const ListItem = styled.div<{ checked?: boolean }>`
   justify-content: space-between;
   padding: 1rem;
   position: relative;
-  color: var(--very-dark-grayish-blue); //var(--white);
+  color: var(--very-dark-grayish-blue);
 
   ~ div::after {
     content: "";
@@ -144,4 +144,9 @@ export const Flex = styled(Infos)<{ filter?: string }>`
     `> span:nth-child(${props.filter}){
     color: blue;
   }`}
+`;
+
+export const Drag = styled.p`
+  text-align: center;
+  margin: 1.5rem 0;
 `;
