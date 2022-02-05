@@ -90,7 +90,9 @@ const ListContainer = ({
         <Droppable droppableId="list">
           {(provided) => (
             <ContainerList {...provided.droppableProps} ref={provided.innerRef}>
-              {listUpdate !== undefined &&
+              {listUpdate.length === 0 ? (
+                <ListItem>Adicione uma tarefa</ListItem>
+              ) : (
                 listUpdate.map((item, index) => (
                   <Draggable
                     key={item.id}
@@ -118,7 +120,8 @@ const ListContainer = ({
                       </ListItem>
                     )}
                   </Draggable>
-                ))}
+                ))
+              )}
               {provided.placeholder}
               <Infos>
                 <span>{remaining} items left</span>

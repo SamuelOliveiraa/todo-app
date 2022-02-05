@@ -3,16 +3,24 @@ import Check from "../../images/icon-check.svg";
 
 export const ContainerList = styled.div`
   width: 100%;
+  min-height: 140px;
   background-color: var(--white);
   border-radius: 0.2rem;
   box-shadow: 0 1px 15px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  > p{
+    margin: 0 auto;
+  }
 `;
 
 export const InputContainer = styled(ContainerList)`
+  min-height: 20px;
   box-shadow: none;
-  display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   margin: 1.3rem 0;
   padding: 0 1rem;
   color: var(--text-gray);
@@ -91,7 +99,9 @@ export const ListItem = styled.div<{ checked?: boolean }>`
     width: 86%;
     font-size: 1rem;
     color: var(--very-dark-grayish-blue);
-    ${props => props.checked && `text-decoration: line-through;
+    ${(props) =>
+      props.checked &&
+      `text-decoration: line-through;
     opacity: 0.2;`}
   }
   > img {
