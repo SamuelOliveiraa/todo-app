@@ -1,6 +1,6 @@
 # Frontend Mentor -  Todo App ([Click Here](https://todo-app-samueloliveiraa.vercel.app/))
 
-![Design preview for Todo App ](/src/Images/desktop-preview.jpg)
+![Design preview for Todo App ](/src/images/desktop-preview.jpg)
 
 ## WELCOME! 👋
 
@@ -23,6 +23,7 @@ In this challenge I used my studies in React Js, Typescript and Styled-component
 * Flexbox
 * Responsive Website
 * React Beautiful DND 
+* Dark Theme 
 
 ## Access My Resolution 💻
 
