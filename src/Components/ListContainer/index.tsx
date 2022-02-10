@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../Store/store";
+
 import { Item } from "../../Types/Item";
 import Delete from "../../images/icon-cross.svg";
 import {
@@ -19,6 +22,7 @@ import {
   InfosMobile,
   Drag,
 } from "./style";
+import { UPDATE_LIST } from "../../Store/List/actions";
 
 type Props = {
   addList: (text: string) => void;
@@ -26,7 +30,6 @@ type Props = {
   removeList: (id: number) => void;
   handleFilter: (filterString: string) => void;
   clearCompleted: () => void;
-  list: Item[];
   filter: string;
 };
 
@@ -34,24 +37,17 @@ const ListContainer = ({
   updateCheck,
   addList,
   removeList,
-  list,
   filter,
   handleFilter,
   clearCompleted,
 }: Props) => {
   const [remaining, setRemaining] = useState(0);
   const [listUpdate, setListUpdate] = useState(list);
+  const list = useSelector((state: RootState) => state.list.list);
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    let a = 0;
-
-    for (let item of list) {
-      if (item.check === true) {
-        a += 1;
-      }
-    }
-    setRemaining(list.length - a);
-    setListUpdate(list);
+    dispatch()
   }, [list]);
 
   const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -62,12 +58,12 @@ const ListContainer = ({
 
   const handleOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
-    const newList = Array.from(listUpdate);
+    const newList = Array.from(list);
     const [reorderedItem] = newList.splice(result.source.index, 1);
     const dest = result.destination as DraggableLocation;
     newList.splice(dest.index, 0, reorderedItem);
 
-    setListUpdate(newList);
+    dispatch(UPDATE_LIST(list))
   };
 
   return (

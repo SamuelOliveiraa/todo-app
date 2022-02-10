@@ -3,3 +3,7 @@ export type Item = {
     check: boolean
     text: string
 }
+
+export type ListType = {
+    list: Item[]
+}

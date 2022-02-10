@@ -19,13 +19,13 @@ const AppContainer = ({
   updateCheck,
   addList,
   removeList,
-  theme,
   handleTheme,
-  list,
   handleFilter,
   filter,
-  clearCompleted
+  clearCompleted,
 }: Props) => {
+ 
+  const theme = useSelector((state: RootState) => state.theme);
   return (
     <Container>
       <Header theme={theme} handleTheme={handleTheme} />
