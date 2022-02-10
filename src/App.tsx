@@ -20,19 +20,6 @@ const App = () => {
     }
   }, []);
 
-  const addList = (text: string) => {
-    let newList = JSON.parse(localStorage.getItem("list") || "[]");
-
-    newList.push({
-      id: Math.floor(Math.random() * 837829120187282),
-      check: false,
-      text,
-    });
-
-    localStorage.setItem("list", JSON.stringify(newList));
-    handleFilter(filter);
-  };
-
   const removeList = (id: number) => {
     let newList = JSON.parse(localStorage.getItem("list") || "[]");
 
@@ -101,8 +88,6 @@ const App = () => {
       {theme === true ? <GlobalStyleLight /> : <GlobalStyleDark />}
 
       <AppContainer
-        removeList={removeList}
-        updateCheck={updateCheck}
         handleFilter={handleFilter}
         filter={filter}
         clearCompleted={clearCompleted}

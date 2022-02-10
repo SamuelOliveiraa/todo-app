@@ -22,23 +22,15 @@ import {
   InfosMobile,
   Drag,
 } from "./style";
-import { ADD_LIST, UPDATE_LIST } from "../../Store/List/actions";
+import { ADD_LIST, REMOVE_LIST, UPDATE_CHECK, UPDATE_LIST } from "../../Store/List/actions";
 
 type Props = {
-  updateCheck: (id: number) => void;
-  removeList: (id: number) => void;
   handleFilter: (filterString: string) => void;
   clearCompleted: () => void;
   filter: string;
 };
 
-const ListContainer = ({
-  updateCheck,
-  removeList,
-  filter,
-  handleFilter,
-  clearCompleted,
-}: Props) => {
+const ListContainer = ({ filter, handleFilter, clearCompleted }: Props) => {
   const [remaining, setRemaining] = useState(0);
   const list = useSelector((state: RootState) => state.list.list);
   const dispatch = useDispatch();
@@ -55,12 +47,12 @@ const ListContainer = ({
 
   const handleOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
-    const newList = Array.from(list);
+    const newList: Item[] = Array.from(list);
     const [reorderedItem] = newList.splice(result.source.index, 1);
     const dest = result.destination as DraggableLocation;
     newList.splice(dest.index, 0, reorderedItem);
 
-    dispatch(UPDATE_LIST(list));
+    dispatch(UPDATE_LIST({list: newList}));
   };
 
   return (
@@ -86,7 +78,7 @@ const ListContainer = ({
               {list.length === 0 ? (
                 <ListItem>Adicione uma tarefa</ListItem>
               ) : (
-                list.map((item, index) => (
+                list.map((item: Item, index: number) => (
                   <Draggable
                     key={item.id}
                     draggableId={item.id.toString()}
@@ -102,13 +94,15 @@ const ListContainer = ({
                         <CustomCheckmark checked={item.check}>
                           <input type="checkbox" />
 
-                          <span onClick={() => updateCheck(item.id)}></span>
+                          <span
+                            onClick={() => dispatch(UPDATE_CHECK(item.id))}
+                          ></span>
                         </CustomCheckmark>
                         <h2>{item.text}</h2>
                         <img
                           src={Delete}
                           alt="Delete Icon"
-                          onClick={() => removeList(item.id)}
+                          onClick={() => dispatch(REMOVE_LIST(item.id))}
                         />
                       </ListItem>
                     )}

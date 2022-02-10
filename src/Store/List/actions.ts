@@ -1,4 +1,4 @@
-import { Item } from "../../Types/Item";
+import { Item, ListType } from "../../Types/Item";
 
 export const actions = {
   ADD_LIST: "ADD_CART",
@@ -7,10 +7,10 @@ export const actions = {
   UPDATE_LIST: "UPDATE_LIST",
 };
 
-export function ADD_LIST(newList: string) {
+export function ADD_LIST(text: string) {
   return {
     type: actions.ADD_LIST,
-    payload: newList,
+    payload: text,
   };
 }
 
@@ -26,7 +26,7 @@ export function UPDATE_CHECK(id: number) {
     payload: id,
   };
 }
-export function UPDATE_LIST(list: Item[]) {
+export function UPDATE_LIST(list: ListType) {
   return {
     type: actions.UPDATE_LIST,
     payload: list,

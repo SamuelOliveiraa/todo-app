@@ -7,16 +7,11 @@ import { RootState } from "../../Store/store";
 
 type Props = {
   filter: string;
-  updateCheck: (id: number) => void;
-  removeList: (id: number) => void;
   handleFilter: (filterString: string) => void;
   clearCompleted: () => void;
 };
 
 const AppContainer = ({
-  updateCheck,
-  addList,
-  removeList,
   handleFilter,
   filter,
   clearCompleted,
@@ -26,8 +21,6 @@ const AppContainer = ({
       <Header/>
 
       <ListContainer
-        removeList={removeList}
-        updateCheck={updateCheck}
         filter={filter}
         handleFilter={handleFilter}
         clearCompleted={clearCompleted}
