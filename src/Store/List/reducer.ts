@@ -13,8 +13,8 @@ const INITIAL_VALUE: ListType = {
 export default (state = INITIAL_VALUE, action: Action) => {
   switch (action.type) {
     case actions.ADD_LIST:
-    /* let repeat = 0;
-      state.cart.map((e) => {
+      let repeat = 0;
+      state.list.map((e) => {
         if (e.id === action.payload.id) {
           repeat = 1;
         }
@@ -22,9 +22,9 @@ export default (state = INITIAL_VALUE, action: Action) => {
       if (repeat !== 1) {
         return {
           ...state,
-          cart: [...state.cart, action.payload],
+          list: [...state.list, action.payload],
         };
-      } */
+      }
     case actions.REMOVE_LIST:
       return state;
     case actions.UPDATE_CHECK:

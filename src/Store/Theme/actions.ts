@@ -1,9 +1,8 @@
 export const actions = {
   TOGGLE_THEME: "TOGGLE_THEME",
 };
-export function TOGGLE_THEME(theme: boolean) {
+export function TOGGLE_THEME() {
   return {
     type: actions.TOGGLE_THEME,
-    payload: theme,
   };
 }

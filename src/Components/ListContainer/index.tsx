@@ -22,10 +22,9 @@ import {
   InfosMobile,
   Drag,
 } from "./style";
-import { UPDATE_LIST } from "../../Store/List/actions";
+import { ADD_LIST, UPDATE_LIST } from "../../Store/List/actions";
 
 type Props = {
-  addList: (text: string) => void;
   updateCheck: (id: number) => void;
   removeList: (id: number) => void;
   handleFilter: (filterString: string) => void;
@@ -35,24 +34,22 @@ type Props = {
 
 const ListContainer = ({
   updateCheck,
-  addList,
   removeList,
   filter,
   handleFilter,
   clearCompleted,
 }: Props) => {
   const [remaining, setRemaining] = useState(0);
-  const [listUpdate, setListUpdate] = useState(list);
   const list = useSelector((state: RootState) => state.list.list);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch()
-  }, [list]);
+  }, [list]); */
 
   const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    addList(target.value);
+    dispatch(ADD_LIST(target.value));
     target.value = "";
   };
 
@@ -63,7 +60,7 @@ const ListContainer = ({
     const dest = result.destination as DraggableLocation;
     newList.splice(dest.index, 0, reorderedItem);
 
-    dispatch(UPDATE_LIST(list))
+    dispatch(UPDATE_LIST(list));
   };
 
   return (
@@ -86,10 +83,10 @@ const ListContainer = ({
         <Droppable droppableId="list">
           {(provided) => (
             <ContainerList {...provided.droppableProps} ref={provided.innerRef}>
-              {listUpdate.length === 0 ? (
+              {list.length === 0 ? (
                 <ListItem>Adicione uma tarefa</ListItem>
               ) : (
-                listUpdate.map((item, index) => (
+                list.map((item, index) => (
                   <Draggable
                     key={item.id}
                     draggableId={item.id.toString()}

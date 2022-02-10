@@ -10,7 +10,7 @@ type Action = {
 export default (state = true, action: Action) => {
   switch (action.type) {
     case actions.TOGGLE_THEME:
-      return state;
+      return !state;
     default:
       return state;
   }

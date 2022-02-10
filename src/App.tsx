@@ -3,13 +3,12 @@ import GlobalStyleDark from "./Styles/theme-dark";
 import { useEffect, useState } from "react";
 import AppContainer from "./Components/AppContainer";
 import { Item } from "./Types/Item";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { persistedStore, store } from "./Store/store";
-
+import { persistedStore, RootState, store } from "./Store/store";
 
 const App = () => {
-  const [theme, setTheme] = useState(true);
+  const theme = useSelector((state: RootState) => state.theme);
   const [list, setList] = useState<Item[]>([]);
   const [filter, setFilter] = useState("1");
 
@@ -20,10 +19,6 @@ const App = () => {
       setList(JSON.parse(localStorage.getItem("list") || "[]"));
     }
   }, []);
-
-  const handleTheme = () => {
-    setTheme(!theme);
-  };
 
   const addList = (text: string) => {
     let newList = JSON.parse(localStorage.getItem("list") || "[]");
@@ -102,23 +97,17 @@ const App = () => {
   };
 
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistedStore}>
-        {theme === true ? <GlobalStyleLight /> : <GlobalStyleDark />}
+    <>
+      {theme === true ? <GlobalStyleLight /> : <GlobalStyleDark />}
 
-        <AppContainer
-          list={list}
-          addList={addList}
-          removeList={removeList}
-          updateCheck={updateCheck}
-          theme={theme}
-          handleTheme={handleTheme}
-          handleFilter={handleFilter}
-          filter={filter}
-          clearCompleted={clearCompleted}
-        />
-      </PersistGate>
-    </Provider>
+      <AppContainer
+        removeList={removeList}
+        updateCheck={updateCheck}
+        handleFilter={handleFilter}
+        filter={filter}
+        clearCompleted={clearCompleted}
+      />
+    </>
   );
 };
 

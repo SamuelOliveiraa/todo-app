@@ -2,13 +2,11 @@ import { Container } from "./style";
 import Header from "../Header";
 import ListContainer from "../ListContainer";
 import { Item } from "../../Types/Item";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Store/store";
 
 type Props = {
-  list: Item[];
-  theme: boolean;
   filter: string;
-  handleTheme: () => void;
-  addList: (text: string) => void;
   updateCheck: (id: number) => void;
   removeList: (id: number) => void;
   handleFilter: (filterString: string) => void;
@@ -19,22 +17,17 @@ const AppContainer = ({
   updateCheck,
   addList,
   removeList,
-  handleTheme,
   handleFilter,
   filter,
   clearCompleted,
 }: Props) => {
- 
-  const theme = useSelector((state: RootState) => state.theme);
   return (
     <Container>
-      <Header theme={theme} handleTheme={handleTheme} />
+      <Header/>
 
       <ListContainer
-        addList={addList}
         removeList={removeList}
         updateCheck={updateCheck}
-        list={list}
         filter={filter}
         handleFilter={handleFilter}
         clearCompleted={clearCompleted}
