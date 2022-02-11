@@ -33,7 +33,8 @@ const ListContainer = () => {
   const list = useSelector((state: RootState) => state.list.list);
   const [remaining, setRemaining] = useState(0);
   const [listUpdate, setListUpdate] = useState(list);
-  const [filter, setFilter] = useState(list);
+  const [filter, setFilter] = useState("1");
+  const [checkedInput, setCheckedInput] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -46,15 +47,18 @@ const ListContainer = () => {
       }
     }
     setRemaining(list.length - a);
+    setListUpdate(list);
   }, [list]);
-
-  useEffect(() => {
-    setListUpdate(list)
-  }, [list.length]);
 
   const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    dispatch(ADD_LIST(target.value));
+    const newItem = {
+      id: Math.floor(Math.random() * 837829120187282),
+      check: checkedInput,
+      text: target.value,
+    };
+    target.value !== "" && dispatch(ADD_LIST(newItem));
+    setFilter("1");
     target.value = "";
   };
 
@@ -93,29 +97,28 @@ const ListContainer = () => {
     }
   };
 
-  const clearCompleted = () => {
-    const newListFiltered = listUpdate.filter(
-      (item: Item) => item.check !== true
-    );
-    if (filter === "3") {
-      setListUpdate(newListFiltered);
-    } else {
-      setListUpdate(newListFiltered);
-      dispatch(UPDATE_LIST({ list: newListFiltered }));
-    }
+  const clearCompleted = async () => {
+    const newListFiltered = list.filter((item: Item) => item.check !== true);
+    setListUpdate(newListFiltered);
+    dispatch(UPDATE_LIST({ list: newListFiltered }));
+    setFilter("1");
   };
 
   const handleCheckUpdate = (id: number) => {
     dispatch(UPDATE_CHECK(id));
-    handleFilter(filter);
+    setFilter("1");
+  };
+  const handleDeleteItem = (id: number) => {
+    dispatch(REMOVE_LIST(id));
+    setFilter("1");
   };
 
   return (
     <>
       <InputContainer>
-        <CustomCheckmark>
-          <input type="checkbox" name="" />
-          <span></span>
+        <CustomCheckmark checked={checkedInput}>
+          <input type="checkbox"/>
+          <span onClick={() => setCheckedInput(!checkedInput)}></span>
         </CustomCheckmark>
 
         <input
@@ -131,7 +134,9 @@ const ListContainer = () => {
           {(provided) => (
             <ContainerList {...provided.droppableProps} ref={provided.innerRef}>
               {listUpdate.length === 0 ? (
-                <ListItem>Adicione uma tarefa</ListItem>
+                <ListItem>
+                  <h1>Adicione uma tarefa</h1>
+                </ListItem>
               ) : (
                 listUpdate.map((item: Item, index: number) => (
                   <Draggable
@@ -157,7 +162,7 @@ const ListContainer = () => {
                         <img
                           src={Delete}
                           alt="Delete Icon"
-                          onClick={() => dispatch(REMOVE_LIST(item.id))}
+                          onClick={() => handleDeleteItem(item.id)}
                         />
                       </ListItem>
                     )}

@@ -11,7 +11,7 @@ export const ContainerList = styled.div`
   justify-content: space-between;
   flex-direction: column;
 
-  > p{
+  > p {
     margin: 0 auto;
   }
 `;
@@ -23,14 +23,15 @@ export const InputContainer = styled(ContainerList)`
   align-items: center;
   margin: 1.3rem 0;
   padding: 0 1rem;
-  color: var(--text-gray);
+  color: var(--very-dark-grayish-blue);
 
   > input[type="text"] {
     width: 92%;
     height: 3rem;
+    color: var(--very-dark-grayish-blue);
   }
   > input::placeholder {
-    color: var(--text-gray);
+    color: var(--very-dark-grayish-blue);
   }
 `;
 
@@ -94,7 +95,11 @@ export const ListItem = styled.div<{ checked?: boolean }>`
     top: 0;
     left: 0;
   }
-
+  > h1{
+    margin: 0 auto;
+    margin-top: 1.2rem;
+    font-size: 1.4rem;
+  }
   > h2 {
     width: 86%;
     font-size: 1rem;
@@ -113,6 +118,9 @@ export const ListItem = styled.div<{ checked?: boolean }>`
 export const Infos = styled(ListItem)`
   font-size: 0.8rem;
   padding: 1rem;
+  > span:last-child {
+    cursor: pointer;
+  }
   > div {
     width: 10px;
     opacity: 0;
@@ -159,4 +167,5 @@ export const Flex = styled(Infos)<{ filter?: string }>`
 export const Drag = styled.p`
   text-align: center;
   margin: 1.5rem 0;
+  color: var(--very-dark-grayish-blue);
 `;

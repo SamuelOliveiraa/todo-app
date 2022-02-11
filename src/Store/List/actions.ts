@@ -7,10 +7,10 @@ export const actions = {
   UPDATE_LIST: "UPDATE_LIST",
 };
 
-export function ADD_LIST(text: string) {
+export function ADD_LIST(item: Item) {
   return {
     type: actions.ADD_LIST,
-    payload: text,
+    payload: item,
   };
 }
 

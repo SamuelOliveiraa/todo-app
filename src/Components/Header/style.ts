@@ -10,6 +10,7 @@ export const Container = styled.div`
     font-size: 2rem;
   }
   svg {
+    cursor: pointer;
     font-size: 1.3rem;
     transition: all 0.2s;
   }
