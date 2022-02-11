@@ -59,6 +59,7 @@ const ListContainer = () => {
     };
     target.value !== "" && dispatch(ADD_LIST(newItem));
     setFilter("1");
+    setCheckedInput(false)
     target.value = "";
   };
 
