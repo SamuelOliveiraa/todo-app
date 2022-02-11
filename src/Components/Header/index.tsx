@@ -6,7 +6,7 @@ import { TOGGLE_THEME } from "../../Store/Theme/actions";
 
 const Header = () => {
   const theme = useSelector((state: RootState) => state.theme);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   return (
     <Container>
       <h2>TODO</h2>
